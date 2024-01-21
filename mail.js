@@ -80,8 +80,8 @@ const mailOptions = {
   ` , 
   attachments: [
     {
-    //   path: `./Kartago-${dateWithoutHours}.xlsx`,
-      path: `./Kartago-12-01-2024.xlsx`,
+      path: `./Kartago-${dateWithoutHours}.xlsx`,
+      // path: `./Kartago-12-01-2024.xlsx`,
 
     },
     

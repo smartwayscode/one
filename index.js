@@ -38,9 +38,9 @@ const sleep = (milliseconds) => {
     executablePath: '/usr/bin/chromium-browser',
     maxConcurrency: 2,
     timeout: 1200000,
-    sameDomainDelay: 5000,
+    sameDomainDelay: 3000,
     monitor: true,
-    workerCreationDelay: 5000,
+    workerCreationDelay: 3000,
     puppeteerOptions: {
       // executablePath: '/usr/bin/chromium-browser',
       protocolTimeout: 1200000,
@@ -112,10 +112,10 @@ const sleep = (milliseconds) => {
             hotelsurls.push(hotelurl)
             try {
               // fs.appendFile('resulturls1.json', JSON.stringify(hotelurl, null, 2), function (err) { })
-              cluster2.queue(hotelurl);
-              cluster2.waitForOne()
+              await cluster2.queue(hotelurl);
+              await cluster2.waitForOne()
               // cluster2.waitForOneIdle()
-              cluster2.idle()
+              await cluster2.idle()
             } catch (error) {
               console.log(error)
             }
@@ -244,7 +244,6 @@ const sleep = (milliseconds) => {
               nights = nights.replace(" éjszaka", "N");
               await page.waitForSelector('div.f_termList-header > div.f_termList-header-itemWrapper > div.f_termList-header-itemWrapper > div.f_termList-header-item.f_termList-header-item--price > span.f_price.pl-1', { visible: true });
               Price = await page.evaluate(offer1 => offer1.querySelector('div.f_termList-header > div.f_termList-header-itemWrapper > div.f_termList-header-itemWrapper > div.f_termList-header-item.f_termList-header-item--price > span.f_price.pl-1').textContent, offer1);
-              console.log(Price)
               discount = await page.evaluate(offer1 => offer1.querySelector('div.f_termList-header > div.f_termList-header-itemWrapper > div.f_termList-header-itemWrapper > div.f_termList-header-item.f_termList-header-item--discount > span').textContent, offer1); 
               var reg = /\d+/g;
               discount = discount.match(reg) + "%";
@@ -290,19 +289,13 @@ const sleep = (milliseconds) => {
     }
 
   });
-  // periods = [ "2", "3"]
-  // for(const period of periods) {
-  // await  cluster1.queue( period );
-  // await cluster1.waitForOne()
-  //  await cluster1.idle()
-  //  await cluster1.close()
-//  cluster2.queue("https://www.kartagotours.hu/tunezia/djerba/houmt-souk/jerba-sun-club?D=63252|63447&DD=2024-06-04&DP=489&DPR=KARTAGO-HU-ATCOM&DS=65536&GIATA=3986&HID=4534&IFM=0&ILM=0&MNN=7&MT=5&NN=7&PID=DJE90008&RC=DR01&RD=2024-06-12&TO=489|4371&df=2024-05-28|2024-06-26&nnm=7|8|9|10|11|12|13|14&ptm=0&tom=489|4371&tt=1&ttm=1#/terminy-a-ceny")
-  // await cluster1.queue("2");
+
+  await cluster1.queue("2");
   // await cluster1.waitForOne()
   // await cluster1.idle()
   // await cluster1.close()
 
 
-cluster2.queue("https://www.kartagotours.hu/tunezia/tunezia-(szarazfold)/sousse/royal-jinene-resort?D=63252|63447&DD=2024-05-10&DP=489&DPR=KARTAGO-HU-ATCOM&DS=65536&GIATA=4109&HID=141523&IFM=0&ILM=0&MNN=7&MT=5&NN=7&PID=MIR90007&RC=DR01&RD=2024-05-18&TO=489|4371&df=2024-05-01|2024-06-30&nnm=7|8|9|10|11|12|13|14&ptm=0&tom=489|4371&tt=1&ttm=1#/terminy-a-ceny")
+// cluster2.queue("https://www.kartagotours.hu/tunezia/tunezia-(szarazfold)/sousse/royal-jinene-resort?D=63252|63447&DD=2024-05-10&DP=489&DPR=KARTAGO-HU-ATCOM&DS=65536&GIATA=4109&HID=141523&IFM=0&ILM=0&MNN=7&MT=5&NN=7&PID=MIR90007&RC=DR01&RD=2024-05-18&TO=489|4371&df=2024-05-01|2024-06-30&nnm=7|8|9|10|11|12|13|14&ptm=0&tom=489|4371&tt=1&ttm=1#/terminy-a-ceny")
 
 })();

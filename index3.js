@@ -9,7 +9,7 @@ const sleep = (milliseconds) => {
 
 (async () => {
 
-  let periodText = "September-October 2024";
+  let periodText = "July-August 2024";
   let count = 0;
 
   const pathToExtension1 = path.join(process.cwd(), 'cookie-blocker');
@@ -19,7 +19,7 @@ const sleep = (milliseconds) => {
     timeout: 1200000,
     sameDomainDelay: 20000000,
     workerCreationDelay: 20000000 , 
-    // monitor: true,
+    monitor: true,
     puppeteerOptions: {
       protocolTimeout: 1200000,
       headless: false,
@@ -39,7 +39,7 @@ const sleep = (milliseconds) => {
     maxConcurrency: 2,
     timeout: 1200000,
     sameDomainDelay: 5000,
-    monitor: true,
+    // monitor: true, 
     workerCreationDelay: 5000,
     puppeteerOptions: {
       // executablePath: '/usr/bin/chromium-browser',
@@ -72,57 +72,25 @@ const sleep = (milliseconds) => {
       }
     });
     
-  
+  period1 = "01" ; 
+  period2 = "02" ;
+  period3 = "03" ;
+  period4 = "04" ;
+  period5 = "05" ;
+  period6 = "06" ;
+  period7 = "07" ;
+  period8 = "08" ;
+  period9 = "09" ;
+  period10 = "10" ;
   await cluster1.task(async ({ page }) => {
     try {    
       page.setDefaultNavigationTimeout(0);
       page.setDefaultTimeout(0);
-      await page.goto("https://www.kartagotours.hu/keresesi-eredmenyek?d=63252|63447&dd=2024-09-01&nn=7|8|9|10|11|12|13|14&rd=2024-10-31&to=489|4371&tt=1", { waitUntil: 'networkidle2' });
-      // may/june or july/august or august/september
-      // await page.click('.f_filterMainSearch-content > .f_filterMainSearch-content-item > .f_button');
-      // await page.click('.f_customScroll > .f_column > .f_column-item:last-child > .f_list > .f_list-item:last-child > .f_input-wrapper > .flex > .relative');
-      // await page.click('div.f_filterMainSearch-content > .f_filterMainSearch-content-item:nth-child(3) > .f_button');
-      // sleep(2000)
-      // try {
-      //   if (period == "1") {
-      //    await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(2) > span')
-      //    const n = await page.$("div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(2) > span > label > span > span ")
-      //    periodText = await page.evaluate(el => el.textContent, n);  
-      //   }else if (period == "2") {
-      //   await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span')
-      //   const n = await page.$("div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span > label > span > span ")
-      //   periodText = await page.evaluate(el => el.textContent, n);  
-      //   // div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span  
-      // } 
-      // }catch (error) {
-      //   console.log(error)
-      // }
-      // sleep(2000)
-      // await page.waitForSelector('.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-footer.js_filter-footer > div:nth-child(3) > a', { visible: true });
-      // await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-footer.js_filter-footer > div:nth-child(3) > a')
-     
-    await page.waitForSelector('.f_searchResult-content',  { visible: true });
-    const hotelsurls = []
-    let isBtnEnabled = (await page.$('.f_searchResult-content-item')) !== null;
-    while (isBtnEnabled) {
-      try {
-
-        const selector = '#daktela-web > div.dw-body'; // Replace with your actual CSS selector
-        const classNameToCheck = 'dw-visible'; // Replace with your actual class name
-        
-        // Use page.$eval to check if the element contains the specified class
-        const hasClass = await page.$eval(selector, (element, className) => {
-          return element.classList.contains(className);
-        }, classNameToCheck);
-        console.log(hasClass);
-        if (hasClass) {
-          await page.click('#daktela-web > div.dw-button');
-        }
-      
-      }
-      catch (error) {
-        console.log(error)
-      }
+      await page.goto("https://www.kartagotours.hu/keresesi-eredmenyek?d=63252|63447&dd=2024-07-01&nn=7|8|9|10|11|12|13|14&rd=2024-08-31&to=489|4371&tt=1:", { waitUntil: 'networkidle2' });
+      await page.waitForSelector('.f_searchResult-content',  { visible: true });
+      const hotelsurls = []
+      let isBtnEnabled = (await page.$('.f_searchResult-content-item')) !== null;
+      while (isBtnEnabled) {
         const offersHandler = await page.$$('.f_searchResult-content-item');
         for (const offer of offersHandler) { 
           try {
@@ -138,9 +106,6 @@ const sleep = (milliseconds) => {
             } catch (error) {
               console.log(error)
             }
-            // cluster2.close()
-            // page.goto(hotelurl, { waitUntil: 'networkidle2' });
-            // await page.waitForSelector('.f_hotelDetail-content', { visible: true });
           } catch (error) {}
         }
             await page.waitForSelector('.f_searchResult-content-item', { visible: true });
@@ -338,6 +303,3 @@ const sleep = (milliseconds) => {
 // cluster2.queue("https://www.kartagotours.hu/tunezia/tunezia-(szarazfold)/sousse/marabout?AC1=1&D=63447&DD=2024-08-23&DP=489&DPR=KARTAGO-HU-ATCOM&DS=65536&GIATA=4116&HID=9329&IC1=0&IFM=0&ILM=0&KC1=0&MNN=7&MT=5&NN=7&PID=MIR90005&RC=SR01&RD=2024-08-31&TO=489|4371&acm1=1&df=2024-07-01|2024-08-31&nnm=7&ptm=0&tom=489|4371&tt=1&ttm=1#/terminy-a-ceny")
 
 })();
-// Final working code for the project
-
-

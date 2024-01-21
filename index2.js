@@ -19,7 +19,7 @@ const sleep = (milliseconds) => {
     timeout: 1200000,
     sameDomainDelay: 20000000,
     workerCreationDelay: 20000000 , 
-    // monitor: true,
+    monitor: true,
     puppeteerOptions: {
       protocolTimeout: 1200000,
       headless: false,
@@ -39,7 +39,7 @@ const sleep = (milliseconds) => {
     maxConcurrency: 2,
     timeout: 1200000,
     sameDomainDelay: 5000,
-    monitor: true,
+    // monitor: true, 
     workerCreationDelay: 5000,
     puppeteerOptions: {
       // executablePath: '/usr/bin/chromium-browser',
@@ -77,52 +77,11 @@ const sleep = (milliseconds) => {
     try {    
       page.setDefaultNavigationTimeout(0);
       page.setDefaultTimeout(0);
-      await page.goto("https://www.kartagotours.hu/keresesi-eredmenyek?d=63252|63447&dd=2024-07-01&nn=7|8|9|10|11|12|13|14&rd=2024-08-31&to=489|4371&tt=1", { waitUntil: 'networkidle2' });
-      // may/june or july/august or august/september
-      // await page.click('.f_filterMainSearch-content > .f_filterMainSearch-content-item > .f_button');
-      // await page.click('.f_customScroll > .f_column > .f_column-item:last-child > .f_list > .f_list-item:last-child > .f_input-wrapper > .flex > .relative');
-      // await page.click('div.f_filterMainSearch-content > .f_filterMainSearch-content-item:nth-child(3) > .f_button');
-      // sleep(2000)
-      // try {
-      //   if (period == "1") {
-      //    await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(2) > span')
-      //    const n = await page.$("div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(2) > span > label > span > span ")
-      //    periodText = await page.evaluate(el => el.textContent, n);  
-      //   }else if (period == "2") {
-      //   await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span')
-      //   const n = await page.$("div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span > label > span > span ")
-      //   periodText = await page.evaluate(el => el.textContent, n);  
-      //   // div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-content > div > div:nth-child(2) > div.f_paragraph.f_show--from900 > div:nth-child(3) > span  
-      // } 
-      // }catch (error) {
-      //   console.log(error)
-      // }
-      // sleep(2000)
-      // await page.waitForSelector('.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-footer.js_filter-footer > div:nth-child(3) > a', { visible: true });
-      // await page.click('div.f_filterHolder.js_filterHolder.f_set--active > div.f_filterHolder-footer.js_filter-footer > div:nth-child(3) > a')
-     
+      await page.goto("https://www.kartagotours.hu/keresesi-eredmenyek?d=63252|63447&dd=2024-07-01&nn=7|8|9|10|11|12|13|14&rd=2024-08-31&to=489|4371&tt=1:", { waitUntil: 'networkidle2' });
     await page.waitForSelector('.f_searchResult-content',  { visible: true });
     const hotelsurls = []
     let isBtnEnabled = (await page.$('.f_searchResult-content-item')) !== null;
     while (isBtnEnabled) {
-      try {
-
-        const selector = '#daktela-web > div.dw-body'; // Replace with your actual CSS selector
-        const classNameToCheck = 'dw-visible'; // Replace with your actual class name
-        
-        // Use page.$eval to check if the element contains the specified class
-        const hasClass = await page.$eval(selector, (element, className) => {
-          return element.classList.contains(className);
-        }, classNameToCheck);
-        console.log(hasClass);
-        if (hasClass) {
-          await page.click('#daktela-web > div.dw-button');
-        }
-      
-      }
-      catch (error) {
-        console.log(error)
-      }
         const offersHandler = await page.$$('.f_searchResult-content-item');
         for (const offer of offersHandler) { 
           try {
@@ -131,16 +90,13 @@ const sleep = (milliseconds) => {
             try {
               // fs.appendFile('resulturls1.json', JSON.stringify(hotelurl, null, 2), function (err) { })
               await cluster2.queue(hotelurl);
-              await cluster2.waitForOne()
+              // await cluster2.waitForOne()
               // cluster2.waitForOneIdle()
-              await cluster2.idle()
+              // await cluster2.idle()
               // cluster2.close()
             } catch (error) {
               console.log(error)
             }
-            // cluster2.close()
-            // page.goto(hotelurl, { waitUntil: 'networkidle2' });
-            // await page.waitForSelector('.f_hotelDetail-content', { visible: true });
           } catch (error) {}
         }
             await page.waitForSelector('.f_searchResult-content-item', { visible: true });
